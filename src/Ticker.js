@@ -1,8 +1,9 @@
 const _TickerByteLength = 20;
+const _TickerBinaryLittleEndian = true;
 
 class Ticker {
     constructor() {
-        this.value = ''; // 10 chars
+        this.text = ''; // 10 chars
         this.days = 0; // enum
         this.active = false; // bool
         this.startTime = 0; // minutes since midnight
@@ -23,21 +24,27 @@ class Ticker {
     };
     */
 
+
+
     /**
      *
-     * @param {Blob} blob
+     * @param {ArrayBuffer} buffer
      */
-    static async fromBlob(blob) {
+    static fromArrayBuffer(buffer) {
+        if (_TickerByteLength !== buffer.byteLength) {
+            throw Error('invalid buffer');
+        }
+        const dv = new DataView(buffer);
         const ticker = new Ticker();
-        ticker.value = await blob.slice(0, 10).text();
-        ticker.days = blob.slice(10, 11);
-        ticker.active = blob.slice(11, 12);
-        ticker.startTime = blob.slice(12, 14);
-        ticker.endTime = blob.slice(14, 16);
-        debugger;
+        ticker.text = BinaryString.fromBuffer(buffer.slice(0, 10));
+        ticker.days = dv.getUint8(10);
+        ticker.active = 0 !== dv.getUint8(11);
+        ticker.startTime = dv.getUint16(12, _TickerBinaryLittleEndian);
+        ticker.endTime = dv.getUint16(14, _TickerBinaryLittleEndian);
+        return ticker;
     }
 
-    blob() {
+    arrayBuffer() {
         throw "@TODO not implemented";
     }
 
@@ -46,20 +53,19 @@ class Ticker {
 class TickerArray extends Array {
     /**
      *
-     * @param {Blob} blob
+     * @param {ArrayBuffer} buffer
      */
-    static fromBlob(blob) {
+    static fromArrayBuffer(buffer) {
         const tickers = new TickerArray();
-        for (let b = 0; b < blob.size; b += _TickerByteLength) {
-            debugger;
+        for (let begin = 0; begin < buffer.byteLength; begin += _TickerByteLength) {
             tickers.push(
-                Ticker.fromBlob(
-                    blob.slice(b, _TickerByteLength)));
+                Ticker.fromArrayBuffer(
+                    buffer.slice(begin, begin+_TickerByteLength)));
         }
         return tickers;
     }
 
-    blob() {
+    arrayBuffer() {
         throw "@TODO not implemented";
     }
 }

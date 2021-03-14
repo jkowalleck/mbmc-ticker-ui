@@ -1,7 +1,8 @@
 function getData (example) {
 	fetch('../examples/get/' + example)
-	.then(response => response.blob())
-	.then(data => TickerArray.fromBlob(data));
+	.then(response => response.arrayBuffer())
+	.then(buffer => TickerArray.fromArrayBuffer(buffer))
+    .then(tickers => console.table(tickers));
 }
 
 function getDataFull () {
@@ -11,4 +12,8 @@ function getDataFull () {
 
 function getDataSome () {
 	getData('some');
+}
+
+function getDataReal () {
+	getData('real');
 }
