@@ -1,7 +1,7 @@
 function getData (example) {
 	fetch('../examples/get/' + example)
 	.then(response => response.blob())
-	.then(data => Ticker.fromBlob(data));
+	.then(data => TickerArray.fromBlob(data));
 }
 
 function getDataFull () {
