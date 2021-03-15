@@ -1,17 +1,19 @@
 function getData(example) {
-    fetch('../examples/get/' + example)
+    const getRequest = {
+        method: 'GET',
+        mode: 'no-cors',
+        cache: 'no-store',
+        redirect: 'error',
+        referrer: 'no-referrer',
+        referrerPolicy: 'no-referrer',
+        keepalive: false
+    };
+    fetch('../examples/get/' + example, getRequest)
         .then(response => response.arrayBuffer())
         .then(buffer => TickerArray.fromArrayBuffer(buffer))
         .then(tickers => console.table(tickers));
 }
 
-function makeData(example) {
-    fetch('../examples/get/' + example)
-        .then(response => response.arrayBuffer())
-        .then(buffer => TickerArray.fromArrayBuffer(buffer))
-        .then(tickers => tickers.arrayBuffer())
-        .then(buffer => buffer2hex(buffer));
-}
 
 function getDataFull() {
     getData('all_fill_max');
@@ -22,9 +24,8 @@ function getDataSome() {
     getData('some');
 }
 
-function dataReal() {
+function getDataReal() {
     getData('real');
-    makeData('real');
 }
 
 function testFoo () {
@@ -40,7 +41,7 @@ function testFoo () {
 
     t = new Ticker();
     t.text = 'Welt'; // 10 chars
-    t.days = 0; // enum
+    t.days = 1; // enum
     t.active = false; // bool
     t.startTime = 0; // minutes since midnight
     t.endTime = 1337; // minutes since midnight
@@ -49,7 +50,7 @@ function testFoo () {
     t = new Ticker();
     t.text = ''; // 10 chars
     t.days = 0; // enum
-    t.active = false; // bool
+    t.active = true; // bool
     t.startTime = 0; // minutes since midnight
     t.endTime = 0; // minutes since midnight
     ts.push(t);
@@ -72,7 +73,7 @@ function testFoo () {
 
     t = new Ticker();
     t.text = 'doedel,'; // 10 chars
-    t.days = 0; // enum
+    t.days = 2; // enum
     t.active = false; // bool
     t.startTime = 0; // minutes since midnight
     t.endTime = 0; // minutes since midnight
@@ -87,10 +88,26 @@ function testFoo () {
     ts.push(t);
 
     const buffer = ts.arrayBuffer();
+    console.table(ts);
     buffer2hex(buffer);
 
     const tickersAgain = TickerArray.fromArrayBuffer(buffer);
     console.table(tickersAgain);
+
+    console.debug('eq', ts == tickersAgain);
+
+    const setRequest = {
+        method: 'POST',
+        body: buffer,
+        mode: 'no-cors',
+        cache: 'no-store',
+        referrer: 'no-referrer',
+        referrerPolicy: 'no-referrer',
+        keepalive: false
+        // @TODO integrity
+    };
+    fetch('http://localhost:8001/set', setRequest)
+        .then(response => console.log(response));
 }
 
 /**
