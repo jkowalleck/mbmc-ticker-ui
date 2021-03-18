@@ -1,7 +1,6 @@
 const BinaryString = {
 
     /**
-     *
      * @param {ArrayBuffer} buffer
      * @param {integer} [offset]
      * @param {integer} [length]
@@ -15,7 +14,6 @@ const BinaryString = {
     },
 
     /**
-     *
      * @param {string} string
      * @param {ArrayBuffer} buffer
      * @param {integer} [offset]
@@ -27,7 +25,7 @@ const BinaryString = {
         for (let c = 0; c < dv.byteLength && c < string.length; ++c) {
             dv.setUint8(c, string.charCodeAt(c));
         }
-        for (let filler = string.length; filler < dv.byteLength ; ++filler) {
+        for (let filler = string.length; filler < dv.byteLength; ++filler) {
             dv.setUint8(filler, 0);
         }
         return buffer;

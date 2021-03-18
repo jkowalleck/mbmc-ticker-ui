@@ -9,5 +9,8 @@
   "devDependencies": {
     "jshint": "^2.12.0",
     "jslint": "^0.12.1"
+  },
+  "dependencies": {
+    "vue": "^2.6.12"
   }
 }

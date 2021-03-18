@@ -1,12 +1,70 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<script src="d.js"></script>
-		<script src="BinaryString.js"></script>
-		<script src="Ticker.js"></script>
-	</head>
-	<body>
+<html lang="en">
 
-	</body>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+	<script src="../node_modules/vue/dist/vue.js"></script>
+
+	<script src="Minutes.js"></script>
+	<script src="BinaryString.js"></script>
+	<script src="Ticker.js"></script>
+
+	<script src="App.js"></script>
+
+	<!-- script src="d.js"></script -->
+</head>
+
+<body>
+	<div id="app">
+
+		<button v-on:cick="load">load</button>
+
+		<table v-if="tickers">
+			<thead>
+				<tr>
+					<th>text</th>
+					<th>days</th>
+					<th>from</th>
+					<th>to</th>
+					<th>active</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="ticker in tickers">
+					<td>
+						<input type="text" maxlength="10" size="10" v-model="ticker.text" placeholder="unset" />
+					</td>
+					<td>
+						<select v-model="ticker.days">
+							<option value="0">unset</option>
+							<option value="1">mo-fr</option>
+							<option value="2">sa-so</option>
+							<option value="3">mo-so</option>
+						</select>
+					</td>
+					<td>
+						<input type="time" v-model="ticker.startTime" />
+					</td>
+					<td>
+						<input type="time" v-model="ticker.endTime" />
+					</td>
+					<td>
+						<input type="checkbox" v-model="ticker.active" />
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="5">
+						<button v-on:cick="save">save</button>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+
+	</div>
+</body>
+
 </html>

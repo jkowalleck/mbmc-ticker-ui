@@ -11,7 +11,8 @@ function getData(example) {
     fetch('../examples/get/' + example, getRequest)
         .then(response => response.arrayBuffer())
         .then(buffer => TickerArray.fromArrayBuffer(buffer))
-        .then(tickers => console.table(tickers));
+        .then(tickers => {console.table(tickers.data); return tickers;})
+        .then(tickers => { app.tickers = tickers.data; });
 }
 
 
