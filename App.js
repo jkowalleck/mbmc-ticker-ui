@@ -18,7 +18,10 @@ const app = new Vue({
                     referrerPolicy: 'no-referrer',
                     keepalive: false
                 })
-                .then(response => response.arrayBuffer())
+                .then(function(response) {
+                    debugger;
+                    return response.arrayBuffer();
+                })
                 .then(buffer => TickerArray.fromArrayBuffer(buffer))
                 .then(tickers => { app.tickers = tickers.data; })
                 .catch(error => alert(error.message));
