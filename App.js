@@ -29,11 +29,13 @@ const app = new Vue({
                 .catch(error => alert(error.message));
         },
         save: function (event) {
+            const tickers = new TickerArray();
+            tickers.data = this.tickers;
             const self = this;
             fetch(self.apiBase + 'set',
                 {
                     method: 'POST',
-                    body: buffer,
+                    body: tickers.arrayBuffer(),
                     mode: 'cors',
                     cache: 'no-store',
                     redirect: 'error',
