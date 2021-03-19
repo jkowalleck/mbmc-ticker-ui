@@ -7,29 +7,36 @@ const app = new Vue({
     },
     methods: {
         load: function (event) {
-            const app = this;
-            fetch(this.apiBase + 'get',
+            const self = this;
+            fetch(self.apiBase + 'get',
                 {
                     method: 'GET',
-                    mode: 'no-cors',
+                    mode: 'cors',
                     cache: 'no-store',
                     // redirect: 'error',
                     referrer: 'no-referrer',
                     referrerPolicy: 'no-referrer',
                     keepalive: false
                 })
-                .then(response => response.arrayBuffer())
+                .then(function(response) {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.arrayBuffer();
+                })
                 .then(buffer => TickerArray.fromArrayBuffer(buffer))
-                .then(tickers => { app.tickers = tickers.data; })
+                .then(tickers => { self.tickers = tickers.data; })
                 .catch(error => alert(error.message));
         },
         save: function (event) {
-            const app = this;
-            fetch(this.apiBase + 'set',
+            const tickers = new TickerArray();
+            tickers.data = this.tickers;
+            const self = this;
+            fetch(self.apiBase + 'set',
                 {
                     method: 'POST',
-                    body: buffer,
-                    mode: 'no-cors',
+                    body: tickers.arrayBuffer(),
+                    mode: 'cors',
                     cache: 'no-store',
                     redirect: 'error',
                     referrer: 'no-referrer',
@@ -37,7 +44,12 @@ const app = new Vue({
                     keepalive: false
                     // @TODO integrity
                 })
-                .then(response => console.log(response))
+                .then(function(response) {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response;
+                })
                 .catch(error => alert(error.message));
         }
     }

@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-	<script src="../node_modules/vue/dist/vue.js"></script>
+	<script src="vue.min.js"></script>
 
 	<script src="Minutes.js"></script>
 	<script src="BinaryString.js"></script>
@@ -19,16 +19,14 @@
 <body>
 	<div id="app">
 
-		<button v-on:cick="load">load</button>
-
 		<table v-if="tickers">
 			<thead>
 				<tr>
-					<th>text</th>
-					<th>days</th>
-					<th>from</th>
-					<th>to</th>
-					<th>active</th>
+					<th>Text</th>
+					<th>Days</th>
+					<th>From</th>
+					<th>To</th>
+					<th>Active</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -58,7 +56,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="5">
-						<button v-on:cick="save">save</button>
+						<button v-on:click="save">save</button>
 					</td>
 				</tr>
 			</tfoot>
