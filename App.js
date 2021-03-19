@@ -11,7 +11,7 @@ const app = new Vue({
             fetch(self.apiBase + 'get',
                 {
                     method: 'GET',
-                    mode: 'no-cors',
+                    mode: 'cors',
                     cache: 'no-store',
                     // redirect: 'error',
                     referrer: 'no-referrer',
@@ -34,7 +34,7 @@ const app = new Vue({
                 {
                     method: 'POST',
                     body: buffer,
-                    mode: 'no-cors',
+                    mode: 'cors',
                     cache: 'no-store',
                     redirect: 'error',
                     referrer: 'no-referrer',
