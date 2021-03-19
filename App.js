@@ -52,7 +52,7 @@ window.onload = function () {
         return;
     }
     if ('/' !== apiBase.slice(-1)) {
-        apiBase = '/';
+        apiBase += '/';
     }
 
     app.apiBase = apiBase;
