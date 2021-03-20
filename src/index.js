@@ -64,10 +64,9 @@ document.addEventListener(
 
         let apiBase = (window.location.hash || '#').slice(1);
         if ('' === apiBase) {
-            alert('missing apiBase');
-            return;
+            apiBase = './';
         }
-        if ('/' !== apiBase.slice(-1)) {
+        else if ('/' !== apiBase.slice(-1)) {
             apiBase += '/';
         }
 
