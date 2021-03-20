@@ -1,7 +1,6 @@
-const Minutes = {
+export default {
     /**
-     *
-     * @param {integer} value minutes since midnight
+     * @param {number} value integer minutes since midnight
      * @returns {string} format HH:MM
      */
     toTime: function (value) {
@@ -11,9 +10,8 @@ const Minutes = {
     },
 
     /**
-     *
      * @param {string} value format HH:MM
-     * @returns {integer} minutes since midnight
+     * @returns {number} integer minutes since midnight
      */
     fromTime: function (value) {
         const parts = value.split(':');

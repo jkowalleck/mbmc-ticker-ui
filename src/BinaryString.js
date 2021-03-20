@@ -1,27 +1,27 @@
-const BinaryString = {
+export default {
 
     /**
      * @param {ArrayBuffer} buffer
-     * @param {integer} [offset]
-     * @param {integer} [length]
-     * @returns BinaryString
+     * @param {number} [offset] integer
+     * @param {number} [length] integer
+     * @returns String
      */
     fromBuffer: function (buffer, offset, length) {
         const bytes = new Uint8Array(buffer, offset, length);
         const firstZero = bytes.findIndex(b => b === 0);
-        const charcodes = bytes.slice(0, firstZero);
-        return String.fromCharCode.apply(null, charcodes);
+        const charCodes = bytes.slice(0, firstZero);
+        return String.fromCharCode.apply(null, charCodes);
     },
 
     /**
      * @param {string} string
      * @param {ArrayBuffer} buffer
-     * @param {integer} [offset]
-     * @param {integer} [length]
+     * @param {number} [offset]
+     * @param {number} [length] integer
      * @returns {ArrayBuffer}
      */
     toBuffer: function (string, buffer, offset, length) {
-        var dv = new DataView(buffer, offset, length);
+        const dv = new DataView(buffer, offset, length);
         for (let c = 0; c < dv.byteLength && c < string.length; ++c) {
             dv.setUint8(c, string.charCodeAt(c));
         }

@@ -2,13 +2,19 @@
   "name": "mbmc-ticker-ui",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "author": "",
   "devDependencies": {
+    "html-inline-script-webpack-plugin": "^1.1.2",
+    "html-webpack-plugin": "^5.3.1",
     "jshint": "^2.12.0",
-    "jslint": "^0.12.1"
+    "jslint": "^0.12.1",
+    "webpack": "^5.27.0",
+    "webpack-cli": "^4.5.0"
   },
   "dependencies": {
     "vue": "^2.6.12"

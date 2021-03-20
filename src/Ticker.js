@@ -1,8 +1,11 @@
+import Minutes from './Minutes'
+import BinaryString from './BinaryString'
+
 const _TickerByteLength = 20;
 const _TickerBinaryLittleEndian = true;
 
 
-class Ticker {
+export class Ticker {
     constructor() {
         this.text = '';
         this.days = 0;
@@ -89,7 +92,7 @@ class Ticker {
 
 }
 
-class TickerArray {
+export class TickerArray {
 
     constructor ()
     {

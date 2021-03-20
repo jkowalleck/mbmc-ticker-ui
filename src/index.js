@@ -1,4 +1,5 @@
-
+import {TickerArray} from './Ticker'
+import Vue from "vue";
 
 const app = new Vue({
     data: {
@@ -55,19 +56,24 @@ const app = new Vue({
     }
 });
 
-window.onload = function () {
-    app.$mount('#app');
 
-    let apiBase = (window.location.hash || '#').slice(1);
-    if ('' === apiBase) {
-        alert('missing apiBase');
-        return;
-    }
-    if ('/' !== apiBase.slice(-1)) {
-        apiBase += '/';
-    }
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+        app.$mount('#app');
 
-    app.apiBase = apiBase;
+        let apiBase = (window.location.hash || '#').slice(1);
+        if ('' === apiBase) {
+            alert('missing apiBase');
+            return;
+        }
+        if ('/' !== apiBase.slice(-1)) {
+            apiBase += '/';
+        }
 
-    app.load();
-};
+        app.apiBase = apiBase;
+
+        app.load();
+    },
+    false
+);
