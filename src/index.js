@@ -1,4 +1,4 @@
-import {TickerArray} from './Ticker'
+import {TickerArray} from './modules/Ticker'
 import Vue from "vue";
 
 const app = new Vue({
